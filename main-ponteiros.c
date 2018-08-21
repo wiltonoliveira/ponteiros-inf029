@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdio_ext.h> 
+ 
 
 #define TAM_PRINC 10
 
@@ -10,15 +10,17 @@ struct auxiliar {
 	int topo;
 };
 
-
+typedef struct auxiliar aux;
 
 
 int  menu (int operador);
 void asteriscos ();
-//void inserir_elemento (struct auxiliar *elemento);
+
+void novo_vetor (int *vet, int tam);
+void novo_elemento ()
 
 int main(void) {
-	struct auxiliar principal [TAM_PRINC];
+	aux principal [TAM_PRINC];
 	int op;
 	int i;
 	int pos;
@@ -33,17 +35,21 @@ int main(void) {
 		case 1: {
 				printf ("Informe a posicao da estrutura principal sera alocada: ");
 				scanf ("%d", &pos);
-				__fpurge(stdin);
+				fflush(stdin);
 			
 				if (principal[pos].topo == 0){
 					printf("\nVetor auxiliar na posicao %d nao criado\nInforme o tamanho do vetor: ",pos);
 					scanf ("%d", &principal[pos].tam_vetor);
-					__fpurge(stdin);
+					fflush(stdin);
+					
+					novo_vetor (principal[pos].vet_aux, principal[pos].tam_vetor);
+					novo_elemento ();
 				}
-
-				principal[pos].vet_aux = (int *) malloc (sizeof (struct auxiliar));
-
-				//inserir_elemento (principal[pos].vet_aux);
+				
+				else if (principal[pos].topo == principal[pos].tam_vetor){
+						printf ("\n\nVETOR DA POSICAO %d CHEIO\nGostaria de aumentar o valor do vetor auxiliar na posicao %d ?", pos, pos);
+				}
+				
 				break;
 			}
 		
@@ -52,18 +58,17 @@ int main(void) {
 	
 }
 
-/*
-void inserir_elemento (struct auxiliar *elemento){
-	int x;
-	printf("Digite o elemento\n");
-	scanf ("%d", &x);
 
-
+void novo_vetor (int *vet, int tam){
+	vet = (int *) malloc (tam * sizeof (int));
 }
-*/
 
-
-
+void novo_elemento (){
+	int elem;
+	
+	printf ("\n\nDigite o elemento a ser inserido: ");
+	scanf ("%d", &elem);	
+}
 
 
 
@@ -78,6 +83,7 @@ int  menu (int operador){
 	printf ("7 - Sair\n");
 	printf ("Digite a operacao desejada:");
 	scanf ("%d", &operador);
+	fflush(stdin);
 	
 	return operador;
 }
