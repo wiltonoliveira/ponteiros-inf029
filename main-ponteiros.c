@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
- 
+#include <stdio_ext.h>
 
 #define TAM_PRINC 10
 
@@ -17,7 +17,7 @@ int  menu (int operador);
 void asteriscos ();
 
 void novo_vetor (int *vet, int tam);
-void novo_elemento ()
+void novo_elemento (int *vet, int topo);
 
 int main(void) {
 	aux principal [TAM_PRINC];
@@ -35,15 +35,18 @@ int main(void) {
 		case 1: {
 				printf ("Informe a posicao da estrutura principal sera alocada: ");
 				scanf ("%d", &pos);
-				fflush(stdin);
+				//fflush(stdin);
+				__fpurge (stdin);
 			
 				if (principal[pos].topo == 0){
 					printf("\nVetor auxiliar na posicao %d nao criado\nInforme o tamanho do vetor: ",pos);
 					scanf ("%d", &principal[pos].tam_vetor);
-					fflush(stdin);
-					
+					//fflush(stdin);
+					__fpurge (stdin);
+
 					novo_vetor (principal[pos].vet_aux, principal[pos].tam_vetor);
-					novo_elemento ();
+					novo_elemento (principal[pos].vet_aux, principal[pos].topo);
+					principal[pos].topo += 1;
 				}
 				
 				else if (principal[pos].topo == principal[pos].tam_vetor){
@@ -63,11 +66,14 @@ void novo_vetor (int *vet, int tam){
 	vet = (int *) malloc (tam * sizeof (int));
 }
 
-void novo_elemento (){
-	int elem;
+void novo_elemento (int *vet, int topo){
+	
 	
 	printf ("\n\nDigite o elemento a ser inserido: ");
-	scanf ("%d", &elem);	
+	scanf ("%d", &vet[topo]);
+	//fflush(stdin);
+	__fpurge (stdin);
+	
 }
 
 
@@ -83,7 +89,8 @@ int  menu (int operador){
 	printf ("7 - Sair\n");
 	printf ("Digite a operacao desejada:");
 	scanf ("%d", &operador);
-	fflush(stdin);
+	//fflush(stdin);
+	__fpurge (stdin);
 	
 	return operador;
 }
