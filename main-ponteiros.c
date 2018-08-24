@@ -19,6 +19,8 @@ void asteriscos ();
 void novo_vetor (int **vet, int tam);
 void novo_elemento (int *vet, int topo);
 void lista_todos (int vet[], int tam);
+void lista_ordenado (int vet[], int topo);
+void insertionSort(int V[], int tam);
 
 int main(void) {
 	aux principal [TAM_PRINC];
@@ -62,7 +64,7 @@ int main(void) {
 				}
 
 				else if (principal[pos].topo == principal[pos].tam_vetor){
-						printf ("\n\nVETOR DA POSICAO %d CHEIO\nGostaria de aumentar o valor do vetor auxiliar na posicao %d ?\n", pos, pos);
+						printf ("\n\nVETOR DA POSICAO %d CHEIO\n", pos);
 				}
 
 				else if (principal[pos].topo < principal[pos].tam_vetor && principal[pos].topo > 0){
@@ -85,7 +87,10 @@ int main(void) {
 			}
 			case 3: {
 				//Listar os numeros ordenados para cada estrutura auxiliar
-				
+				for (i = 0; i < TAM_PRINC; i++){
+					printf("VETOR AUXILIAR DA POSICAO %d:", i);
+					lista_ordenado (principal[i].vet_aux, principal[i].topo);
+				}
 				break;
 			}
 		}
@@ -125,6 +130,40 @@ void lista_todos (int vet[], int topo){
 	}
 
 	printf("\n");
+}
+
+void lista_ordenado (int *vet, int topo){
+	int i;
+	int *v;
+	
+	novo_vetor (&v, topo);
+
+	for (i = 0; i < topo; i++){
+		v[i] = vet[i];
+	}
+
+	insertionSort (v, topo);
+
+	for (i = 0; i < topo; i++)
+		printf ("%d ",v[i]);
+
+	free (v);
+}
+
+void insertionSort(int V[], int tam)
+{    
+  int i, j, aux;
+ 
+  for(i = 1; i > tam; i++){
+    j = i;
+ 
+    while((j != 0) && (V[j] > V[j - 1])) {
+      aux = V[j];
+      V[j] = V[j - 1];
+      V[j - 1] = aux;
+      j--;     
+    }
+  }
 }
 
 int  menu (int operador){
