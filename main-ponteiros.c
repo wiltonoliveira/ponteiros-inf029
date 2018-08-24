@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdio_ext.h>
+//#include <stdio_ext.h>
 
 #define TAM_PRINC 10
 
@@ -20,7 +20,7 @@ void novo_vetor (int **vet, int tam);
 void novo_elemento (int *vet, int topo);
 void lista_todos (int vet[], int tam);
 void lista_ordenado (int vet[], int topo);
-void insertionSort(int V[], int tam);
+void insertionSortC(int array[], int tamanho);
 
 int main(void) {
 	aux principal [TAM_PRINC];
@@ -43,14 +43,14 @@ int main(void) {
 
 				printf ("Informe a posicao da estrutura principal sera alocada: ");
 				scanf ("%d", &pos);
-				//fflush(stdin);
-				__fpurge (stdin);
+				fflush(stdin);
+				//__fpurge (stdin);
 
 				if (principal[pos].topo == 0){
 					printf("\nVetor auxiliar na posicao %d nao criado\nInforme o tamanho do vetor: ",pos);
 					scanf ("%d", &principal[pos].tam_vetor);
-					//fflush(stdin);
-					__fpurge (stdin);
+					fflush(stdin);
+					//__fpurge (stdin);
 
 					novo_vetor (&principal[pos].vet_aux, principal[pos].tam_vetor);
 
@@ -71,7 +71,8 @@ int main(void) {
 					novo_elemento (principal[pos].vet_aux, principal[pos].topo);
 					principal[pos].topo += 1;
 				}
-
+				system ("PAUSE");
+				system ("cls");
 				break;
 			}
 
@@ -82,7 +83,8 @@ int main(void) {
 					printf("VETOR AUXILIAR DA POSICAO %d:", i);
 					lista_todos (principal[i].vet_aux, principal[i].topo);
 				}
-
+				system ("PAUSE");
+				system ("cls");
 				break;
 			}
 			case 3: {
@@ -90,6 +92,7 @@ int main(void) {
 				for (i = 0; i < TAM_PRINC; i++){
 					printf("VETOR AUXILIAR DA POSICAO %d:", i);
 					lista_ordenado (principal[i].vet_aux, principal[i].topo);
+					printf ("\n");
 				}
 				break;
 			}
@@ -104,7 +107,6 @@ int main(void) {
 void novo_vetor (int **vet, int tam){
 
 	*vet = (int *) malloc (tam * sizeof (int));
-
 }
 
 void novo_elemento (int *vet, int topo){
@@ -117,8 +119,8 @@ void novo_elemento (int *vet, int topo){
 
     printf("Valor inserido in function: %d\n", vet[topo]);
 
-	//fflush(stdin);
-	__fpurge (stdin);
+	fflush(stdin);
+	//__fpurge (stdin);
 
 }
 
@@ -134,15 +136,15 @@ void lista_todos (int vet[], int topo){
 
 void lista_ordenado (int *vet, int topo){
 	int i;
-	int *v;
+	int *v = NULL;
 	
-	novo_vetor (&v, topo);
+	v = (int *) malloc (topo * sizeof (int));
 
 	for (i = 0; i < topo; i++){
 		v[i] = vet[i];
 	}
 
-	insertionSort (v, topo);
+	insertionSortC (v, topo);
 
 	for (i = 0; i < topo; i++)
 		printf ("%d ",v[i]);
@@ -150,21 +152,20 @@ void lista_ordenado (int *vet, int topo){
 	free (v);
 }
 
-void insertionSort(int V[], int tam)
-{    
-  int i, j, aux;
- 
-  for(i = 1; i > tam; i++){
-    j = i;
- 
-    while((j != 0) && (V[j] > V[j - 1])) {
-      aux = V[j];
-      V[j] = V[j - 1];
-      V[j - 1] = aux;
-      j--;     
-    }
-  }
+
+void insertionSortC(int array[], int tamanho) {
+      int i, j, tmp;
+      for (i = 1; i < tamanho; i++) {
+            j = i;
+            while (j > 0 && array[j - 1] > array[j]) {
+                  tmp = array[j];
+                  array[j] = array[j - 1];
+                  array[j - 1] = tmp;
+                  j--;
+            }
+      }
 }
+
 
 int  menu (int operador){
 	asteriscos (); printf ("MENU"); asteriscos (); printf ("\n");
@@ -177,9 +178,9 @@ int  menu (int operador){
 	printf ("7 - Sair\n");
 	printf ("Digite a operacao desejada:");
 	scanf ("%d", &operador);
-	//fflush(stdin);
-	__fpurge (stdin);
-
+	fflush(stdin);
+	//__fpurge (stdin);
+	system ("cls");
 	return operador;
 }
 
