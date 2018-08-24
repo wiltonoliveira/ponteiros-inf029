@@ -27,6 +27,7 @@ int main(void) {
 	int op;
 	int i;
 	int pos;
+	int pos_excluir;
 
 	for (i = 0; i < TAM_PRINC; i++)
 		principal[i].topo = 0;
@@ -96,6 +97,24 @@ int main(void) {
 				}
 				break;
 			}
+			case 4: {
+				//Listar todos os numeros de forma ordenada
+				printf ("\n\nFUNCAO AINDA NAO IMPLEMENTADA");
+				break;
+			}
+			case 5: {
+				//Excluir um elemento
+				
+				
+				printf ("De qual posicao da estrutura principal voce deseja excluir: ");
+				scanf ("%d", &pos_excluir);
+				fflush(stdin);
+				//__fpurge (stdin);
+				
+				principal[pos_excluir].topo -= 1;
+				break;
+			}
+			
 		}
 	} while (op != 7);
 
