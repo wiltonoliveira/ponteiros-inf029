@@ -21,7 +21,7 @@ void novo_elemento (int *vet, int topo);
 void lista_todos (int vet[], int tam);
 void lista_ordenado (int vet[], int topo);
 void insertionSortC(int array[], int tamanho);
-void aumentar_vetor (int **vet, int tam);
+void aumentar_vetor (int **vet, int tam_antigo, int tam_novo);
 
 int main(void) {
 	aux principal [TAM_PRINC];
@@ -29,7 +29,8 @@ int main(void) {
 	int i;
 	int pos;
 	int pos_excluir;
-
+	int add;
+	
 	for (i = 0; i < TAM_PRINC; i++)
 		principal[i].topo = 0;
 
@@ -123,13 +124,15 @@ int main(void) {
 				fflush(stdin);
 				//__fpurge (stdin);
 				
-				printf ("Digite o novo tamanho total do vetor: ");
-				scanf ("%d", &principal[pos].tam_vetor);
+				
+	
+				printf ("Quantos elementos serao adicionados: ");
+				scanf ("%d", &add);
 				fflush(stdin);
 				//__fpurge (stdin);
 				
-				aumentar_vetor (&principal[pos].vet_aux, principal[pos].tam_vetor);
-				
+				aumentar_vetor (&principal[pos].vet_aux, principal[pos].tam_vetor, add);
+				principal[pos].tam_vetor += add;
 				break;
 			}
 		}
@@ -202,8 +205,9 @@ void insertionSortC(int array[], int tamanho) {
       }
 }
 
-void aumentar_vetor (int **vet, int tam){
-	*vet = (int *) realloc (vet,  sizeof (int) * tam);
+void aumentar_vetor (int **vet, int tam_antigo, int tam_novo){
+	
+	*vet = (int *) realloc (vet,  (tam_antigo + tam_novo) * sizeof (int));
 }
 
 int  menu (int operador){
