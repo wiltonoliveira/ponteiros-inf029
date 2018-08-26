@@ -21,7 +21,7 @@ void novo_elemento (int *vet, int topo);
 void lista_todos (int vet[], int tam);
 void lista_ordenado (int vet[], int topo);
 void insertionSortC(int array[], int tamanho);
-void aumentar_vetor (int **vet, int tam_antigo, int tam_novo);
+void aumentar_vetor (int *vet, int tam_antigo, int add);
 
 int main(void) {
 	aux principal [TAM_PRINC];
@@ -131,7 +131,7 @@ int main(void) {
 				fflush(stdin);
 				//__fpurge (stdin);
 				
-				aumentar_vetor (&principal[pos].vet_aux, principal[pos].tam_vetor, add);
+				aumentar_vetor (principal[pos].vet_aux, principal[pos].tam_vetor, add);
 				principal[pos].tam_vetor += add;
 				break;
 			}
@@ -205,9 +205,9 @@ void insertionSortC(int array[], int tamanho) {
       }
 }
 
-void aumentar_vetor (int **vet, int tam_antigo, int tam_novo){
+void aumentar_vetor (int *vet, int tam_antigo, int add){
 	
-	*vet = (int *) realloc (vet,  (tam_antigo + tam_novo) * sizeof (int));
+	vet = (int *) realloc (vet,  (tam_antigo + add) * sizeof (int));
 }
 
 int  menu (int operador){
