@@ -20,7 +20,8 @@ void novo_vetor (int **vet, int tam);
 void novo_elemento (int *vet, int topo);
 void lista_todos (int vet[], int tam);
 void lista_ordenado (int vet[], int topo);
-void insertionSortC(int array[], int tamanho);
+void insertionSort(int array[], int tamanho);
+void excluir_elemento (aux estrutura, int elemento);
 void aumentar_vetor (int *vet, int tam_antigo, int add);
 
 int main(void) {
@@ -28,8 +29,9 @@ int main(void) {
 	int op;
 	int i;
 	int pos;
-	int pos_excluir;
+	int pos_excluir, num_excluir;
 	int add;
+	
 	
 	for (i = 0; i < TAM_PRINC; i++)
 		principal[i].topo = 0;
@@ -113,6 +115,12 @@ int main(void) {
 				fflush(stdin);
 				//__fpurge (stdin);
 				
+				printf ("Informe o numero a ser excluido: ");
+				scanf ("%d", &num_excluir);
+				fflush(stdin);
+				//__fpurge (stdin);
+				
+				excluir_elemento (principal[pos_excluir], num_excluir);
 				principal[pos_excluir].topo -= 1;
 				break;
 			}
@@ -183,7 +191,7 @@ void lista_ordenado (int *vet, int topo){
 		v[i] = vet[i];
 	}
 
-	insertionSortC (v, topo);
+	insertionSort (v, topo);
 
 	for (i = 0; i < topo; i++)
 		printf ("%d ",v[i]);
@@ -191,8 +199,7 @@ void lista_ordenado (int *vet, int topo){
 	free (v);
 }
 
-
-void insertionSortC(int array[], int tamanho) {
+void insertionSort(int array[], int tamanho) {
       int i, j, tmp;
       for (i = 1; i < tamanho; i++) {
             j = i;
@@ -203,6 +210,20 @@ void insertionSortC(int array[], int tamanho) {
                   j--;
             }
       }
+}
+
+void excluir_elemento (aux estrutura, int elemento){
+	int i, j, w;
+	
+	for (i = 0, j = (i +1); i < estrutura.tam_vetor; i++){
+		if (estrutura.vet_aux[i] == elemento){
+			estrutura.vet_aux[i] = estrutura.vet_aux[j];
+			
+			for (w = j; w < estrutura.tam_vetor; w++){
+				estrutura.vet_aux[w] = estrutura.vet_aux[w + 1];
+			}
+		}
+	}
 }
 
 void aumentar_vetor (int *vet, int tam_antigo, int add){
