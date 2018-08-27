@@ -222,6 +222,7 @@ void excluir_elemento (aux estrutura, int elemento){
 			for (w = j; w < estrutura.tam_vetor; w++){
 				estrutura.vet_aux[w] = estrutura.vet_aux[w + 1];
 			}
+			break;
 		}
 	}
 }
