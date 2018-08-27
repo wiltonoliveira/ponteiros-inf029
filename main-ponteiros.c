@@ -27,10 +27,12 @@ void aumentar_vetor (int *vet, int tam_antigo, int add);
 int main(void) {
 	aux principal [TAM_PRINC];
 	int op;
-	int i;
+	int i, j, w;
 	int pos;
 	int pos_excluir, num_excluir;
 	int add;
+	int *copia = NULL;
+	int tam_copia;
 	
 	
 	for (i = 0; i < TAM_PRINC; i++)
@@ -103,8 +105,30 @@ int main(void) {
 			}
 			case 4: {
 				//Listar todos os numeros de forma ordenada
-				printf ("\n\nFUNCAO AINDA NAO IMPLEMENTADA");
+				copia = (int *) malloc (principal[0].tam_vetor * sizeof (int));
+				tam_copia = principal[0].tam_vetor;
+				
+				for (i = 0; i < TAM_PRINC; i++){
+					copia = (int *) realloc (copia, (principal[i].tam_vetor + principal[i + 1].tam_vetor) * sizeof (int));
+					tam_copia = principal[i + 1].tam_vetor;
+				}
+				
+				for (i = 0, w = 0; i < tam_copia; i++){
+					for (j = 0; j < principal[i].tam_vetor; j++){
+						copia[w] = principal[i].vet_aux[j];
+						w++;
+					}
+				}
+				
+				insertionSort(copia, tam_copia);
+				
+				system ("cls");
+				printf ("TODOS OS ELEMENTOS ORDENADOS:\n");
+				for (i = 0; i < tam_copia; i++)
+					printf ("%d - ", copia[i]);
+				
 				break;
+				
 			}
 			case 5: {
 				//Excluir um elemento
@@ -149,7 +173,6 @@ int main(void) {
 	return 0;
 
 }
-
 
 void novo_vetor (int **vet, int tam){
 
