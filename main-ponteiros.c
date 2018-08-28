@@ -128,6 +128,8 @@ int main(void) {
 					}
 				}
 				
+				insertionSort(copia, tam_copia);
+				
 				printf ("TODOS OS ELEMENTOS ORDENADOS:\n");
 				for (i = 0; i < tam_copia; i++){
 					printf (" %d ", copia[i]);
