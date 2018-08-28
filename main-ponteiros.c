@@ -27,7 +27,7 @@ void aumentar_vetor (int *vet, int tam_antigo, int add);
 int main(void) {
 	aux principal [TAM_PRINC];
 	int op;
-	int i, j, w;
+	int i, j, w = 0;
 	int pos;
 	int pos_excluir, num_excluir;
 	int add;
@@ -105,28 +105,33 @@ int main(void) {
 			}
 			case 4: {
 				//Listar todos os numeros de forma ordenada
-				copia = (int *) malloc (principal[0].tam_vetor * sizeof (int));
-				tam_copia = principal[0].tam_vetor;
+				for (i = 0; principal[i].tam_vetor <= 0 ; i++)	
+				copia = (int *) malloc (principal[i].topo * sizeof (int));
+						
+					
 				
-				for (i = 0; i < TAM_PRINC; i++){
-					copia = (int *) realloc (copia, (principal[i].tam_vetor + principal[i + 1].tam_vetor) * sizeof (int));
-					tam_copia = principal[i + 1].tam_vetor;
-				}
 				
-				for (i = 0, w = 0; i < tam_copia; i++){
-					for (j = 0; j < principal[i].tam_vetor; j++){
-						copia[w] = principal[i].vet_aux[j];
-						w++;
+				for (; i < TAM_PRINC ; i++){
+					if (principal[i].topo > 0){
+						tam_copia += principal[i].topo;
 					}
 				}
 				
-				insertionSort(copia, tam_copia);
+				copia = (int *) realloc (copia, (tam_copia) * sizeof (int));
 				
-				system ("cls");
+				for (i = 0; i < TAM_PRINC; i++){
+					if (principal[i].topo > 0){
+						for (j = 0; j < principal[i].topo; j++){
+							copia[w] = principal[i].vet_aux[j];
+							w++;
+						}
+					}
+				}
+				
 				printf ("TODOS OS ELEMENTOS ORDENADOS:\n");
-				for (i = 0; i < tam_copia; i++)
-					printf ("%d - ", copia[i]);
-				
+				for (i = 0; i < tam_copia; i++){
+					printf (" %d ", copia[i]);
+				}
 				break;
 				
 			}
