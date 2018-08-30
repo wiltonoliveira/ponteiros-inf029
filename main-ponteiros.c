@@ -33,11 +33,12 @@ int main(void) {
 	int add;
 	int *copia = NULL;
 	int tam_copia;
-	
-	
-	for (i = 0; i < TAM_PRINC; i++)
-		principal[i].topo = 0;
 
+
+	for (i = 0; i < TAM_PRINC; i++){
+		principal[i].topo = 0;
+		principal[i].tam_vetor = 0;
+}
     for (i = 0; i < TAM_PRINC; i++)
 		principal[i].vet_aux = NULL;
 
@@ -88,6 +89,7 @@ int main(void) {
 
 				for (i = 0; i < TAM_PRINC; i++){
 					printf("VETOR AUXILIAR DA POSICAO %d:", i);
+					printf ("(%d posicoes) - ",principal[i].tam_vetor);
 					lista_todos (principal[i].vet_aux, principal[i].topo);
 				}
 				system ("PAUSE");
@@ -105,20 +107,20 @@ int main(void) {
 			}
 			case 4: {
 				//Listar todos os numeros de forma ordenada
-				for (i = 0; principal[i].tam_vetor <= 0 ; i++)	
+				for (i = 0; principal[i].tam_vetor <= 0 ; i++)
 				copia = (int *) malloc (principal[i].topo * sizeof (int));
-						
-					
-				
-				
+
+
+
+
 				for (; i < TAM_PRINC ; i++){
 					if (principal[i].topo > 0){
 						tam_copia += principal[i].topo;
 					}
 				}
-				
+
 				copia = (int *) realloc (copia, (tam_copia) * sizeof (int));
-				
+
 				for (i = 0; i < TAM_PRINC; i++){
 					if (principal[i].topo > 0){
 						for (j = 0; j < principal[i].topo; j++){
@@ -127,49 +129,49 @@ int main(void) {
 						}
 					}
 				}
-				
+
 				insertionSort(copia, tam_copia);
-				
+
 				printf ("TODOS OS ELEMENTOS ORDENADOS:\n");
 				for (i = 0; i < tam_copia; i++){
 					printf (" %d ", copia[i]);
 				}
 				break;
-				
+
 			}
 			case 5: {
 				//Excluir um elemento
-				
-				
+
+
 				printf ("De qual posicao da estrutura principal voce deseja excluir: ");
 				scanf ("%d", &pos_excluir);
 				fflush(stdin);
 				//__fpurge (stdin);
-				
+
 				printf ("Informe o numero a ser excluido: ");
 				scanf ("%d", &num_excluir);
 				fflush(stdin);
 				//__fpurge (stdin);
-				
+
 				excluir_elemento (principal[pos_excluir], num_excluir);
 				principal[pos_excluir].topo -= 1;
 				break;
 			}
 			case 6: {
 				//Aumentar o tamanho de uma estrutura auxiliar
-				
+
 				printf ("Digite a posicao da estrutura principal que quer aumentar: ");
 				scanf ("%d", &pos);
 				fflush(stdin);
 				//__fpurge (stdin);
-				
-				
-	
+
+
+
 				printf ("Quantos elementos serao adicionados: ");
 				scanf ("%d", &add);
 				fflush(stdin);
 				//__fpurge (stdin);
-				
+
 				aumentar_vetor (principal[pos].vet_aux, principal[pos].tam_vetor, add);
 				principal[pos].tam_vetor += add;
 				break;
@@ -214,7 +216,7 @@ void lista_todos (int vet[], int topo){
 void lista_ordenado (int *vet, int topo){
 	int i;
 	int *v = NULL;
-	
+
 	v = (int *) malloc (topo * sizeof (int));
 
 	for (i = 0; i < topo; i++){
@@ -244,11 +246,11 @@ void insertionSort(int array[], int tamanho) {
 
 void excluir_elemento (aux estrutura, int elemento){
 	int i, j, w;
-	
+
 	for (i = 0, j = (i +1); i < estrutura.tam_vetor; i++){
 		if (estrutura.vet_aux[i] == elemento){
 			estrutura.vet_aux[i] = estrutura.vet_aux[j];
-			
+
 			for (w = j; w < estrutura.tam_vetor; w++){
 				estrutura.vet_aux[w] = estrutura.vet_aux[w + 1];
 			}
@@ -258,7 +260,7 @@ void excluir_elemento (aux estrutura, int elemento){
 }
 
 void aumentar_vetor (int *vet, int tam_antigo, int add){
-	
+
 	vet = (int *) realloc (vet,  (tam_antigo + add) * sizeof (int));
 }
 
