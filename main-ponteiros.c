@@ -23,6 +23,7 @@ void lista_ordenado (int vet[], int topo);
 void insertionSort(int array[], int tamanho);
 void excluir_elemento (aux estrutura, int elemento);
 void aumentar_vetor (int *vet, int tam_antigo, int add);
+void inicializa_principal (aux principal[]);
 
 int main(void) {
 	aux principal [TAM_PRINC];
@@ -34,13 +35,9 @@ int main(void) {
 	int *copia = NULL;
 	int tam_copia;
 
+	
 
-	for (i = 0; i < TAM_PRINC; i++){
-		principal[i].topo = 0;
-		principal[i].tam_vetor = 0;
-}
-    for (i = 0; i < TAM_PRINC; i++)
-		principal[i].vet_aux = NULL;
+	inicializa_principal (principal);
 
 	do {
 	op = menu (op);
@@ -108,15 +105,11 @@ int main(void) {
 			case 4: {
 				//Listar todos os numeros de forma ordenada
 				for (i = 0; principal[i].tam_vetor <= 0 ; i++)
-				copia = (int *) malloc (principal[i].topo * sizeof (int));
-
-
-
+				copia = (int *) malloc (principal[0].topo * sizeof (int));
 
 				for (; i < TAM_PRINC ; i++){
-					if (principal[i].topo > 0){
+					if (principal[i].topo > 0)
 						tam_copia += principal[i].topo;
-					}
 				}
 
 				copia = (int *) realloc (copia, (tam_copia) * sizeof (int));
@@ -165,8 +158,10 @@ int main(void) {
 				fflush(stdin);
 				//__fpurge (stdin);
 
-
-
+				if (principal[pos].tam_vetor == 0)
+					printf ("\nVETOR DA POSICAO %d NAO FOI CRIADO\n", pos);
+				
+				else {
 				printf ("Quantos elementos serao adicionados: ");
 				scanf ("%d", &add);
 				fflush(stdin);
@@ -174,6 +169,8 @@ int main(void) {
 
 				aumentar_vetor (principal[pos].vet_aux, principal[pos].tam_vetor, add);
 				principal[pos].tam_vetor += add;
+				}
+
 				break;
 			}
 		}
@@ -275,6 +272,11 @@ int  menu (int operador){
 	printf ("7 - Sair\n");
 	printf ("Digite a operacao desejada:");
 	scanf ("%d", &operador);
+
+	if (operador <= 0 || operador > 7){
+		printf ("\nOPERACAO INVALIDA\n");
+		menu (operador);
+	}
 	fflush(stdin);
 	//__fpurge (stdin);
 	system ("cls");
@@ -286,4 +288,16 @@ void asteriscos (){
 
 	for (i = 0; i < 6; i++)
 		printf ("*");
+}
+
+void inicializa_principal (aux principal[]){
+	int i;
+
+	for (i = 0; i < TAM_PRINC; i++){
+		principal[i].topo = 0;
+		principal[i].tam_vetor = 0;
+		principal[i].vet_aux = NULL;
+	}
+    
+		
 }
